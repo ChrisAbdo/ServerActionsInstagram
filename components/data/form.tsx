@@ -273,6 +273,7 @@ export default function Form() {
                     } else {
                       setImage("");
                       setFile(null);
+                      setData({ image: null });
                       setOpen(false);
                       toast({
                         title: "Post added",
