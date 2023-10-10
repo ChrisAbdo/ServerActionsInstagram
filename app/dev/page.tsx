@@ -27,7 +27,7 @@ export default async function Home() {
   return (
     <div>
       <Form />
-      {posts.map((post) => (
+      {posts.map((post: any) => (
         <li key={post.id}>
           {post.content}
           <img src={post.imageUrl} alt="post image" />
