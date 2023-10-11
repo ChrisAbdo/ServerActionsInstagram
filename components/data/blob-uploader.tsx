@@ -62,7 +62,12 @@ export default function Uploader() {
     >
       <div>
         <div className="space-y-1 mb-4">
-          <h2 className="text-xl font-semibold">Upload a file</h2>
+          <label
+            htmlFor="username"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Cover Image
+          </label>
           <p className="text-sm text-gray-500">
             Accepted formats: .png, .jpg, .gif, .mp4
           </p>

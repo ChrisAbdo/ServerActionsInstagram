@@ -58,12 +58,18 @@ model VerificationToken {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean  @default(false)
-  content   String
-  imageUrl  String
-  author    User     @relation(fields: [authorId], references: [id])
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  published   Boolean  @default(false)
+  title       String
+  description String
+
+  githubUrl String
+  url       String
+  framework String
+  coverImg  String
+  demoUrl   String
+  author    User   @relation(fields: [authorId], references: [id])
   authorId  String
 }

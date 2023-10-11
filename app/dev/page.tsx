@@ -4,7 +4,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
 
-import Form from "@/components/data/form";
+import Form from "@/components/data/Form.1";
+import Link from "next/link";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -27,11 +28,15 @@ export default async function Home() {
   return (
     <div>
       <Form />
+      <br />
       {posts.map((post: any) => (
-        <li key={post.id}>
-          {post.content}
-          <img src={post.imageUrl} alt="post image" />
-        </li>
+        <Link key={post.id} href={`/dev/${post.id}`}>
+          {post.id}
+          <br />
+          {post.title} | {post.description} | {post.framework} |{" "}
+          {post.githubUrl} | {post.url} |{post.coverImg} | {post.demoUrl} |
+          {/* stack is an array of strings */}
+        </Link>
       ))}
     </div>
   );

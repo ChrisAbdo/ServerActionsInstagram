@@ -24,7 +24,7 @@ export default function MainNav() {
         aria-label="Global"
       >
         <div className="flex items-center gap-x-12">
-          <h1 className="text-2xl font-semibold">Flow</h1>
+          <h1 className="text-2xl font-semibold">Ignite</h1>
           <div className="hidden md:flex md:gap-x-12">
             <Link
               href="/"

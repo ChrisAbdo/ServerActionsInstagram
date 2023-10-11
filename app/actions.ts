@@ -18,15 +18,26 @@ async function getSession() {
 
 export async function addPost(formData: FormData) {
   const session = await getSession();
-  const content = String(formData.get("content"));
-  const imageUrl = String(formData.get("imageUrl"));
+  const title = String(formData.get("title"));
+  const description = String(formData.get("description"));
+  const githubUrl = String(formData.get("githubUrl"));
+  const url = String(formData.get("url"));
+  const framework = String(formData.get("framework"));
+
+  const coverImg = String(formData.get("coverImg"));
+  const demoUrl = String(formData.get("demoUrl"));
   const authorId = session?.user.id;
 
   try {
     await prisma.post.create({
       data: {
-        content,
-        imageUrl,
+        title,
+        description,
+        githubUrl,
+        url,
+        framework,
+        coverImg,
+        demoUrl,
         authorId,
       },
     });
