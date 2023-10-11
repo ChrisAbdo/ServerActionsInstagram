@@ -46,3 +46,25 @@ export async function addPost(formData: FormData) {
   }
   revalidatePath("/dev");
 }
+
+export async function addComment(formData: FormData) {
+  const session = await getSession();
+  const postId = Number(formData.get("postId"));
+  const body = String(formData.get("body"));
+  const authorId = session?.user.id;
+
+  try {
+    await prisma.comment.create({
+      data: {
+        postId,
+        body,
+        authorId,
+      },
+    });
+  } catch (error: any) {
+    return {
+      error: error.message,
+    };
+  }
+  revalidatePath(`/dev/${postId}`);
+}

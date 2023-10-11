@@ -1,3 +1,4 @@
+import CommentForm from "@/components/comment/comment-form";
 import { prisma } from "@/prisma/db";
 
 export default async function Home({ params }: { params: { slug: string } }) {
@@ -13,6 +14,19 @@ export default async function Home({ params }: { params: { slug: string } }) {
       author: true,
     },
   });
+
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: postId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      author: true,
+    },
+  });
+
   return (
     <div>
       My Post: {params.slug}
@@ -23,6 +37,16 @@ export default async function Home({ params }: { params: { slug: string } }) {
           {post.stack}
         </li>
       ))}
+      <CommentForm postId={postId} />
+      <ul>
+        {comments &&
+          comments.map((comment: any) => (
+            <li key={comment.id}>
+              {comment.body}
+              {comment.author ? comment.author.name : "User"}
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }
