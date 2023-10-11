@@ -66,11 +66,7 @@ export default async function Home() {
               />
             </div>
 
-            <div className="flex justify-between items-center mt-2">
-              <p className="pointer-events-none mt-2 block truncate text-sm font-medium">
-                {post.title}
-              </p>
-
+            <div className="flex items-center mt-2 gap-x-2">
               <HoverCard openDelay={0}>
                 <HoverCardTrigger>
                   <img
@@ -104,6 +100,10 @@ export default async function Home() {
                   </div>
                 </HoverCardContent>
               </HoverCard>
+
+              <p className="w-max max-w-[75%] truncate rounded-lg px-2 py-1 text-sm bg-muted">
+                {post.title}
+              </p>
             </div>
           </li>
         ))}

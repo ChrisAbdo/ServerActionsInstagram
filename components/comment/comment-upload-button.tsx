@@ -5,11 +5,11 @@ import React from "react";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 
-export default function CommentUploadButton() {
+export default function CommentUploadButton({ input }: { input: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button disabled={pending} type="submit">
+    <Button disabled={pending || !input} type="submit">
       {pending ? "Commenting..." : "Comment"}
     </Button>
   );

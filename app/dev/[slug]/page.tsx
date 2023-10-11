@@ -6,10 +6,32 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-const pages = [
-  { name: "Projects", href: "#", current: false },
-  { name: "Project Nero", href: "#", current: true },
-];
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const postId = parseInt(params.slug, 10); // Convert the slug to an integer
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+  });
+
+  if (!post) {
+    // Handle the case where the post is not found
+    throw new Error("Post not found");
+  }
+
+  return {
+    title: post.title, // Set the metadata title to the post's title
+    openGraph: {
+      images: ["/some-specific-page-image.jpg"], // You might want to change this to post's image if available
+    },
+  };
+}
 
 export default async function Home({ params }: { params: { slug: string } }) {
   const postId = parseInt(params.slug, 10); // Convert the slug to an integer
@@ -58,43 +80,6 @@ export default async function Home({ params }: { params: { slug: string } }) {
           ))}
       </ul> */}
 
-      <nav className="flex mt-4" aria-label="Breadcrumb">
-        <ol role="list" className="flex items-center space-x-4">
-          <li>
-            <div>
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                <HomeIcon
-                  className="h-5 w-5 flex-shrink-0"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Home</span>
-              </a>
-            </div>
-          </li>
-          {pages.map((page) => (
-            <li key={page.name}>
-              <div className="flex items-center">
-                <svg
-                  className="h-5 w-5 flex-shrink-0 text-gray-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  aria-hidden="true"
-                >
-                  <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-                </svg>
-                <a
-                  href={page.href}
-                  className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-                  aria-current={page.current ? "page" : undefined}
-                >
-                  {page.name}
-                </a>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </nav>
-
       <div className="relative isolate overflow-hidden bg-background py-12 lg:overflow-visible">
         {posts.map((post: any) => (
           <div
@@ -107,9 +92,9 @@ export default async function Home({ params }: { params: { slug: string } }) {
                   <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                     {post.title}
                   </h1>
-                  <p className="mt-6 text-xl leading-8 text-muted-foreground">
+                  <pre className="font-sans whitespace-pre-wrap mt-6 text-xl leading-8 text-muted-foreground">
                     {post.description}
-                  </p>
+                  </pre>
                 </div>
               </div>
             </div>
@@ -204,10 +189,20 @@ export default async function Home({ params }: { params: { slug: string } }) {
                       <PersonIcon />
                     </AvatarFallback>
                   </Avatar>
-                  <div className="ml-4 space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {comment.author.name}
-                    </p>
+                  <div className="w-full ml-4 space-y-1">
+                    <div className="flex justify-between items-center">
+                      <p className="text-sm font-medium leading-none">
+                        {comment.author.name}
+                      </p>
+                      <time
+                        dateTime={comment.createdAt.toISOString()}
+                        className="text-muted-foreground text-sm font-medium leading-none"
+                      >
+                        {new Intl.DateTimeFormat("en-US", {
+                          dateStyle: "full",
+                        }).format(comment.createdAt)}
+                      </time>
+                    </div>
                     <pre className="text-sm text-muted-foreground whitespace-pre-wrap">
                       {comment.body}
                     </pre>
