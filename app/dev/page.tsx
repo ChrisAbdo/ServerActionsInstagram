@@ -13,8 +13,9 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { CalendarIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -45,11 +46,10 @@ export default async function Home() {
         {posts.map((post: any) => (
           <li key={post.id} className="relative">
             <div className="flex justify-between items-center mb-2">
-              <p className="text-xs text-muted-foreground">
-                &#42;&nbsp;{post.id}
-              </p>
+              <Badge>{post.framework}</Badge>
               <Link href={`/dev/${post.id}`}>
                 <Button variant="outline" size="sm">
+                  <OpenInNewWindowIcon className="w-4 h-4 mr-2" />
                   View
                 </Button>
               </Link>
@@ -67,7 +67,7 @@ export default async function Home() {
             </div>
 
             <div className="flex justify-between items-center mt-2">
-              <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">
+              <p className="pointer-events-none mt-2 block truncate text-sm font-medium">
                 {post.title}
               </p>
 

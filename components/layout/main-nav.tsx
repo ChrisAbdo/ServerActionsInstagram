@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import ProfileDropdown from "../auth/profile-dropdown";
+import { ModeToggle } from "./mode-toggle";
 
 export default function MainNav() {
   const pathname = usePathname();
@@ -66,7 +67,9 @@ export default function MainNav() {
               Log in
             </Button>
           )}
-
+          <div className="hidden md:flex">
+            <ModeToggle />
+          </div>
           {/* <div className="hidden md:flex">
             <ModeToggle />
           </div>

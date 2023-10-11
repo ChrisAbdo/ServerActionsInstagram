@@ -128,12 +128,12 @@ export default function Form() {
                   className="px-2"
                 >
                   <div className="space-y-12">
-                    <div className="border-b border-gray-900/10">
+                    <div className="border-b border/10">
                       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div className="col-span-full">
                           <label
                             htmlFor="title"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 text-foreground"
                           >
                             Project Name
                           </label>
@@ -153,7 +153,7 @@ export default function Form() {
                         <div className="col-span-full">
                           <label
                             htmlFor="description"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 text-foreground"
                           >
                             About Project
                           </label>
@@ -162,11 +162,11 @@ export default function Form() {
                               name="description"
                               id="description"
                               rows={3}
-                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              className="block w-full rounded-md py-1.5 shadow-sm placeholder:text-gray-400  sm:text-sm sm:leading-6"
                               defaultValue={""}
                             />
                           </div>
-                          <p className="mt-3 text-sm leading-6 text-gray-600">
+                          <p className="mt-3 text-sm leading-6 text-muted-foreground">
                             Please explain your project here.
                           </p>
                         </div>
@@ -174,7 +174,7 @@ export default function Form() {
                         <div className="col-span-full">
                           <label
                             htmlFor="stack"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 text-foreground"
                           >
                             Framework
                           </label>
@@ -211,8 +211,8 @@ export default function Form() {
                       </div>
                     </div>
 
-                    <div className="border-b border-gray-900/10 pb-12">
-                      <h2 className="text-base font-semibold leading-7 text-gray-900">
+                    <div className="border-b border/10 pb-12">
+                      <h2 className="text-base font-semibold leading-7 ">
                         Project Information
                       </h2>
 
@@ -220,7 +220,7 @@ export default function Form() {
                         <div className="col-span-full">
                           <label
                             htmlFor="title"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 "
                           >
                             GitHub URL
                           </label>
@@ -239,7 +239,7 @@ export default function Form() {
                         <div className="col-span-full">
                           <label
                             htmlFor="url"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 "
                           >
                             Project URL
                           </label>
