@@ -21,7 +21,7 @@ export default function MainNav() {
   return (
     <header className="sticky top-0 bg-background z-50">
       <nav
-        className="flex items-center justify-between py-6"
+        className="flex items-center justify-between py-3"
         aria-label="Global"
       >
         <div className="flex items-center gap-x-12">
@@ -70,26 +70,6 @@ export default function MainNav() {
           <div className="hidden md:flex">
             <ModeToggle />
           </div>
-          {/* <div className="hidden md:flex">
-            <ModeToggle />
-          </div>
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <HamburgerMenuIcon className="w-5 h-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="overflow-y-auto w-[90%]">
-                <SheetHeader>
-                  <SheetTitle>Flow</SheetTitle>
-                  <SheetDescription>
-                    <SidebarContents />
-                  </SheetDescription>
-                </SheetHeader>
-              </SheetContent>
-            </Sheet>
-          </div> */}
         </div>
       </nav>
     </header>

@@ -2,6 +2,8 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { addComment } from "@/app/actions";
+import { Textarea } from "../ui/textarea";
+import CommentUploadButton from "./comment-upload-button";
 
 export default function CommentForm({ postId }: { postId: number }) {
   return (
@@ -16,9 +18,15 @@ export default function CommentForm({ postId }: { postId: number }) {
           readOnly={true}
           className="hidden"
         />
-        <Input name="body" id="body" type="text" placeholder="Email" />
 
-        <Button type="submit">Subscribe</Button>
+        <div className="grid w-full gap-2">
+          <Textarea
+            name="body"
+            id="body"
+            placeholder="Type your comment here..."
+          />
+          <CommentUploadButton />
+        </div>
       </div>
     </form>
   );
