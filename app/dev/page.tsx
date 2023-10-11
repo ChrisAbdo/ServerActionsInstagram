@@ -3,9 +3,18 @@ import { prisma } from "@/prisma/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-import Form from "@/components/data/Form.1";
+import Form from "@/components/data/form";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -28,16 +37,77 @@ export default async function Home() {
   return (
     <div>
       <Form />
-      <br />
-      {posts.map((post: any) => (
-        <Link key={post.id} href={`/dev/${post.id}`}>
-          {post.id}
-          <br />
-          {post.title} | {post.description} | {post.framework} |{" "}
-          {post.githubUrl} | {post.url} |{post.coverImg} | {post.demoUrl} |
-          {/* stack is an array of strings */}
-        </Link>
-      ))}
+
+      <ul
+        role="list"
+        className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+      >
+        {posts.map((post: any) => (
+          <li key={post.id} className="relative">
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-xs text-muted-foreground">
+                &#42;&nbsp;{post.id}
+              </p>
+              <Link href={`/dev/${post.id}`}>
+                <Button variant="outline" size="sm">
+                  View
+                </Button>
+              </Link>
+            </div>
+            <div
+              className="border relative w-full hover:opacity-70 transition-all duration-300"
+              style={{ paddingBottom: "66.66%" }}
+            >
+              {/* eslint-disable @next/next/no-img-element */}
+              <img
+                src={post.coverImg}
+                alt="wtf"
+                className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+              />
+            </div>
+
+            <div className="flex justify-between items-center mt-2">
+              <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">
+                {post.title}
+              </p>
+
+              <HoverCard openDelay={0}>
+                <HoverCardTrigger>
+                  <img
+                    className="h-6 w-6 rounded-full object-cover cursor-pointer"
+                    src={post.author.image}
+                    alt=""
+                  />
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <div className="flex justify-between space-x-4">
+                    <Avatar>
+                      <AvatarImage src={post.author.image} alt="" />
+                      <AvatarFallback>
+                        <span>{post.author.name}</span>
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-semibold">
+                        @{post.author.name}
+                      </h4>
+                      <p className="text-sm">
+                        View {post.author.name}&apos;s profile to see their
+                        projects.
+                      </p>
+                      <div className="flex items-center pt-2">
+                        <Button variant="outline" size="sm">
+                          View Projects
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

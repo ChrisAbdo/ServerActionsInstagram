@@ -64,12 +64,10 @@ model Post {
   published   Boolean  @default(false)
   title       String
   description String
-
-  githubUrl String
-  url       String
-  framework String
-  coverImg  String
-  demoUrl   String
-  author    User   @relation(fields: [authorId], references: [id])
-  authorId  String
+  githubUrl   String
+  url         String
+  framework   String
+  coverImg    String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
 }

@@ -25,7 +25,6 @@ export async function addPost(formData: FormData) {
   const framework = String(formData.get("framework"));
 
   const coverImg = String(formData.get("coverImg"));
-  const demoUrl = String(formData.get("demoUrl"));
   const authorId = session?.user.id;
 
   try {
@@ -37,7 +36,6 @@ export async function addPost(formData: FormData) {
         url,
         framework,
         coverImg,
-        demoUrl,
         authorId,
       },
     });
