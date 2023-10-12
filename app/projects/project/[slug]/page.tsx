@@ -22,7 +22,6 @@ export async function generateMetadata({
   });
 
   if (!post) {
-    // Handle the case where the post is not found
     throw new Error("Post not found");
   }
 
