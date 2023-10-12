@@ -19,6 +19,7 @@ import Image from "next/image";
 import FrameworkSelector from "@/components/data/framework-selector";
 import { Input } from "@/components/ui/input";
 import SearchProjects from "@/components/data/search-projects";
+import FrameworkBadge from "@/components/data/framework-badge";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -53,7 +54,8 @@ export default async function Home() {
         {posts.map((post: any) => (
           <li key={post.id} className="relative">
             <div className="flex justify-between items-center mb-2">
-              <Badge>{post.framework}</Badge>
+              {/* <Badge>{post.framework}</Badge> */}
+              <FrameworkBadge framework={post.framework} />
               <Link href={`/projects/project/${post.id}`}>
                 <Button variant="outline" size="sm">
                   <OpenInNewWindowIcon className="w-4 h-4 mr-2" />
