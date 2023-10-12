@@ -3,8 +3,16 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  // images: {
+  //   domains: ["avatars.githubusercontent.com"],
+  // },
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
 };
 

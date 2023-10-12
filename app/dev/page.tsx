@@ -3,7 +3,6 @@ import { prisma } from "@/prisma/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 import Form from "@/components/data/form";
 import Link from "next/link";
@@ -13,9 +12,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { CalendarIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -59,9 +59,13 @@ export default async function Home() {
               style={{ paddingBottom: "66.66%" }}
             >
               {/* eslint-disable @next/next/no-img-element */}
-              <img
+              <Image
                 src={post.coverImg}
+                width={400}
+                height={400}
                 alt="wtf"
+                placeholder="blur"
+                blurDataURL={post.coverImg}
                 className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
               />
             </div>
