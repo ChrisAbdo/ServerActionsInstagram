@@ -95,9 +95,7 @@ export default function Form() {
         }}
       >
         <SheetTrigger asChild>
-          <Button variant="secondary" className="mb-4">
-            Add Project
-          </Button>
+          <Button variant="secondary">Add Project</Button>
         </SheetTrigger>
         <SheetContent className="w-full">
           <ScrollArea className="h-full w-full mt-4 pr-4">

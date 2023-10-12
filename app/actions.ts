@@ -44,7 +44,7 @@ export async function addPost(formData: FormData) {
       error: error.message,
     };
   }
-  revalidatePath("/dev");
+  revalidatePath("/projects");
 }
 
 export async function addComment(formData: FormData) {
@@ -66,5 +66,5 @@ export async function addComment(formData: FormData) {
       error: error.message,
     };
   }
-  revalidatePath(`/dev/${postId}`);
+  revalidatePath(`/projects/project/${postId}`);
 }

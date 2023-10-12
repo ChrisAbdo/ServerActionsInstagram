@@ -16,16 +16,22 @@ import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import FrameworkSelector from "@/components/data/framework-selector";
+import { Input } from "@/components/ui/input";
+import SearchProjects from "@/components/data/search-projects";
 
-export default async function Home() {
+export default async function Home({ params }: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
+
+  const framework = params.slug;
+  console.log(framework);
 
   if (!session) {
     redirect("/api/auth/signin");
   }
   const posts = await prisma.post.findMany({
     where: {
-      authorId: session?.user.id,
+      OR: [{ framework: params.slug }, { title: { contains: params.slug } }],
     },
     orderBy: {
       createdAt: "desc",
@@ -36,18 +42,37 @@ export default async function Home() {
   });
 
   return (
-    <div>
-      <Form />
+    <div className="mt-4">
+      <div className="flex justify-between items-center border rounded-md p-4">
+        <div className="flex items-center gap-x-2">
+          <FrameworkSelector />
+          <SearchProjects />
+        </div>
+        <div>
+          <Form />
+        </div>
+      </div>
 
+      {posts.length === 0 ? (
+        <div>
+          <span>No results found.</span>&nbsp;
+          <span>
+            Return to{" "}
+            <Link href="/projects" className="underline">
+              projects.
+            </Link>
+          </span>
+        </div>
+      ) : null}
       <ul
         role="list"
-        className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+        className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
       >
         {posts.map((post: any) => (
           <li key={post.id} className="relative">
             <div className="flex justify-between items-center mb-2">
               <Badge>{post.framework}</Badge>
-              <Link href={`/dev/${post.id}`}>
+              <Link href={`/projects/project/${post.id}`}>
                 <Button variant="outline" size="sm">
                   <OpenInNewWindowIcon className="w-4 h-4 mr-2" />
                   View
@@ -58,7 +83,6 @@ export default async function Home() {
               className="border relative w-full hover:opacity-70 transition-all duration-300"
               style={{ paddingBottom: "66.66%" }}
             >
-              {/* eslint-disable @next/next/no-img-element */}
               <Image
                 src={post.coverImg}
                 width={400}
