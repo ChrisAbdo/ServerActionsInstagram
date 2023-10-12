@@ -12,7 +12,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -58,7 +58,7 @@ export default async function Home() {
               <FrameworkBadge framework={post.framework} />
               <Link href={`/projects/project/${post.id}`}>
                 <Button variant="outline" size="sm">
-                  <OpenInNewWindowIcon className="w-4 h-4 mr-2" />
+                  <EyeOpenIcon className="w-4 h-4 mr-2" />
                   View
                 </Button>
               </Link>

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 import type { Metadata } from "next";
+import ShareButton from "@/components/data/share-button";
 
 export async function generateMetadata({
   params,
@@ -164,8 +165,14 @@ export default async function Home({ params }: { params: { slug: string } }) {
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      <Button variant="outline">View Repository</Button>
+                      <Button variant="secondary">View Repository</Button>
                     </Link>
+
+                    <ShareButton
+                      params={{
+                        slug: post.id,
+                      }}
+                    />
                   </div>
                 </div>
               </div>
