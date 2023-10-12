@@ -66,6 +66,7 @@ export default async function Home() {
                 alt="wtf"
                 placeholder="blur"
                 blurDataURL={post.coverImg}
+                priority
                 className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
               />
             </div>
