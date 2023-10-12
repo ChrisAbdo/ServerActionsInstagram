@@ -5,6 +5,7 @@ import MainNav from "@/components/layout/main-nav";
 import { Toaster } from "@/components/ui/toaster";
 import { Container } from "@/components/layout/container";
 import { ThemeProvider } from "@/lib/theme-provider";
+import Footer from "@/components/layout/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,17 +33,19 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <AuthProvider>
         <body className={inter.className}>
-          <Container>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <MainNav />
-              {children}
-            </ThemeProvider>
-          </Container>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <MainNav />
+            <Container>
+              <div className="min-h-screen">{children}</div>
+            </Container>
+            <Footer />
+          </ThemeProvider>
+
           <Toaster />
         </body>
       </AuthProvider>
