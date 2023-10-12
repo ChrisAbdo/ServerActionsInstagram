@@ -9,15 +9,17 @@ import Footer from "@/components/layout/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const title = "Ignite: Find awesome open source projects";
+const description =
+  "Ignite is a community-driven platform for discovering and sharing open source projects.";
+
 export const metadata = {
-  title: "Infinix: The Ever-Ticking Counter of Eternity",
-  description:
-    "Infinix is not just another counter; it's a mesmerizing voyage through time and space, an endless cosmic dance of numbers, and an ode to infinity. Have you ever wondered how many seconds are in forever? Are you seeking the meaning of eternal or searching for the digital fountain of youth? Look no further. Witness the magic of numbers as they ascend, driven by the force of timeless algorithms. Recommended for time travelers, digital philosophers, math enthusiasts, and anyone ever lost in the vast universe of cyberspace. Step into the world of Infinix, where time is both an illusion and a reality, and embark on a journey you'll never forget. SEO tags: timeless counter, digital infinity, eternal stopwatch, seconds in forever, cosmic number generator, online timepiece of the ages.",
+  title: title,
+  description: description,
   twitter: {
     card: "summary_large_image",
-    title: "Infinix: The Ever-Ticking Counter of Eternity",
-    description:
-      "Infinix is not just another counter; it's a mesmerizing voyage through time and space, an endless cosmic dance of numbers, and an ode to infinity. Have you ever wondered how many seconds are in forever? Are you seeking the meaning of eternal or searching for the digital fountain of youth? Look no further. Witness the magic of numbers as they ascend, driven by the force of timeless algorithms. Recommended for time travelers, digital philosophers, math enthusiasts, and anyone ever lost in the vast universe of cyberspace. Step into the world of Infinix, where time is both an illusion and a reality, and embark on a journey you'll never forget. SEO tags: timeless counter, digital infinity, eternal stopwatch, seconds in forever, cosmic number generator, online timepiece of the ages.",
+    title: title,
+    description: description,
     creator: "@abdo_eth",
   },
   metadataBase: new URL("https://infinix.chrisabdo.dev"),
