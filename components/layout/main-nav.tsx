@@ -20,7 +20,14 @@ export default function MainNav() {
   const { data: session } = useSession();
 
   return (
-    <header className="sticky top-0 supports-backdrop-blur:bg-background/80 backdrop-blur border-b z-50">
+    <header
+      // className="sticky top-0 supports-backdrop-blur:bg-background/80 backdrop-blur border-b z-50"
+      className={`sticky top-0 border-b z-50 ${
+        pathname === "/projects"
+          ? "bg-background"
+          : "supports-backdrop-blur:bg-background/80 backdrop-blur"
+      }`}
+    >
       <nav
         className="flex items-center justify-between py-3 px-8"
         aria-label="Global"

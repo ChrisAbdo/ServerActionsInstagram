@@ -34,6 +34,9 @@ export default async function Home() {
     },
     include: {
       author: true,
+      _count: {
+        select: { PostUpvote: true }, // Include the count of PostUpvote records
+      },
     },
   });
 

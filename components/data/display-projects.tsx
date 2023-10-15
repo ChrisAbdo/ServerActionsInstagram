@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion, useAnimation } from "framer-motion";
+import UpvotePost from "./upvote-post";
+import { Separator } from "../ui/separator";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -30,6 +32,8 @@ export default function DisplayProjects({
 }) {
   const controls = useAnimation();
 
+  const upvoteCount = post.upvotes;
+
   React.useEffect(() => {
     controls.start("visible");
   }, [controls]);
@@ -37,7 +41,7 @@ export default function DisplayProjects({
   return (
     <motion.li
       key={post.id}
-      className="relative"
+      className="relative border rounded-md p-2"
       initial="hidden"
       animate={controls}
       variants={fadeUp}
@@ -53,7 +57,7 @@ export default function DisplayProjects({
         </Link>
       </div>
       <div
-        className="border relative w-full hover:opacity-70 transition-all duration-300"
+        className="relative w-full hover:opacity-70 transition-all duration-300"
         style={{ paddingBottom: "66.66%" }}
       >
         <Image
@@ -103,6 +107,15 @@ export default function DisplayProjects({
         <p className="w-max max-w-[75%] truncate rounded-lg px-2 py-1 text-sm bg-muted">
           {post.title}
         </p>
+      </div>
+
+      <div className="flex items-center mt-2">
+        <Separator />
+      </div>
+
+      <div className="flex justify-between items-center mt-2">
+        <p className="text-sm text-muted-foreground">{post.author.name}</p>
+        <UpvotePost post={post} />
       </div>
     </motion.li>
   );
