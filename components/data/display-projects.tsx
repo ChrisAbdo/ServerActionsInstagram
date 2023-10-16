@@ -56,21 +56,25 @@ export default function DisplayProjects({
           </Button>
         </Link>
       </div>
-      <div
-        className="relative w-full hover:opacity-70 transition-all duration-300"
-        style={{ paddingBottom: "66.66%" }}
-      >
-        <Image
-          src={post.coverImg}
-          width={400}
-          height={400}
-          alt="wtf"
-          placeholder="blur"
-          blurDataURL={post.coverImg}
-          priority
-          className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
-        />
-      </div>
+      <Separator />
+
+      <Link href={`/projects/project/${post.id}`}>
+        <div
+          className="relative w-full hover:opacity-70 transition-all duration-300"
+          style={{ paddingBottom: "66.66%" }}
+        >
+          <Image
+            src={post.coverImg}
+            width={400}
+            height={400}
+            alt="wtf"
+            placeholder="blur"
+            blurDataURL={post.coverImg}
+            priority
+            className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+          />
+        </div>
+      </Link>
 
       <div className="flex items-center mt-2 gap-x-2">
         <HoverCard openDelay={0}>
@@ -122,6 +126,7 @@ export default function DisplayProjects({
         >
           {post.author.name}
         </Link>
+
         <UpvotePost post={post} />
       </div>
     </motion.div>

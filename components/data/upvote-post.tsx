@@ -50,14 +50,6 @@ export default function UpvotePost({ post }: { post: any }) {
     }
   };
 
-  //   if (hasUpvoted) {
-  //     return (
-  //   <Button size="sm" variant="secondary" onClick={handleUpvote}>
-  //     {post._count.PostUpvote} <ArrowUpIcon className="h-4 w-4" />
-  //   </Button>
-  //     );
-  //   }
-
   return (
     <>
       {hasUpvoted ? (
