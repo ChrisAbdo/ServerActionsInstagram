@@ -39,7 +39,7 @@ export default function DisplayProjects({
   }, [controls]);
 
   return (
-    <motion.li
+    <motion.div
       key={post.id}
       className="relative border rounded-md p-2"
       initial="hidden"
@@ -114,9 +114,14 @@ export default function DisplayProjects({
       </div>
 
       <div className="flex justify-between items-center mt-2">
-        <p className="text-sm text-muted-foreground">{post.author.name}</p>
+        <Link
+          href={`/account/${post.author.name}`}
+          className="text-sm text-muted-foreground hover:underline"
+        >
+          {post.author.name}
+        </Link>
         <UpvotePost post={post} />
       </div>
-    </motion.li>
+    </motion.div>
   );
 }
