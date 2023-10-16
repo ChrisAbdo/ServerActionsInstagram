@@ -23,7 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { HomeIcon } from "@radix-ui/react-icons";
+import { HomeIcon, PlusIcon } from "@radix-ui/react-icons";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Uploader from "./blob-uploader";
 import {
@@ -95,7 +95,10 @@ export default function Form() {
         }}
       >
         <SheetTrigger asChild>
-          <Button variant="secondary">Add Project</Button>
+          <Button variant="secondary">
+            <PlusIcon className="h-4 w-4 mr-2" />
+            Add Project
+          </Button>
         </SheetTrigger>
         <SheetContent className="w-full">
           <ScrollArea className="h-full w-full mt-4 pr-4">

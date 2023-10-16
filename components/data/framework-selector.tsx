@@ -20,7 +20,7 @@ export default function FrameworkSelector() {
   };
   return (
     <Select onValueChange={handleSelectChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[220px]">
         <SelectValue placeholder="Framework" />
       </SelectTrigger>
       <SelectContent className="h-48">

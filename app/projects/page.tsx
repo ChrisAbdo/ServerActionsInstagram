@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import SearchProjects from "@/components/data/search-projects";
 import FrameworkBadge from "@/components/data/framework-badge";
 import DisplayProjects from "@/components/data/display-projects";
+import TopBar from "@/components/projects/top-bar";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -42,15 +43,14 @@ export default async function Home() {
 
   return (
     <div className="mt-4">
-      <div className="flex justify-between items-center border rounded-md p-4">
-        <div className="flex items-center gap-x-2">
-          <FrameworkSelector />
-          <SearchProjects />
-        </div>
+      {/* <div className="flex justify-between items-center border rounded-md p-4">
         <div>
           <Form />
         </div>
-      </div>
+        <FrameworkSelector />
+        <SearchProjects />
+      </div> */}
+      <TopBar />
       <ul
         role="list"
         className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"

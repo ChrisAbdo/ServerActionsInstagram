@@ -16,7 +16,7 @@ export default function SearchProjects() {
     router.push(`/projects/${inputValue}`);
   };
   return (
-    <div className="hidden sm:flex w-full max-w-sm items-center space-x-2">
+    <div className="flex w-full max-w-sm items-center space-x-2">
       <Input
         type="text"
         placeholder="Search project name"

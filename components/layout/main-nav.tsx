@@ -21,7 +21,6 @@ export default function MainNav() {
 
   return (
     <header
-      // className="sticky top-0 supports-backdrop-blur:bg-background/80 backdrop-blur border-b z-50"
       className={`sticky top-0 border-b z-50 ${
         pathname === "/projects"
           ? "bg-background"

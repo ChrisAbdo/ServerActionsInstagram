@@ -95,9 +95,11 @@ export default function DisplayProjects({
                   View {post.author.name}&apos;s profile to see their projects.
                 </p>
                 <div className="flex items-center pt-2">
-                  <Button variant="outline" size="sm">
-                    View Projects
-                  </Button>
+                  <Link href={`/account/${post.author.name}`}>
+                    <Button variant="outline" size="sm">
+                      View Projects
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

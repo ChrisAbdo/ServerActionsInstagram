@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Container } from "@/components/layout/container";
 import { ThemeProvider } from "@/lib/theme-provider";
 import Footer from "@/components/layout/footer";
+import { TailwindIndicator } from "@/components/layout/tailwind-indicator";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,9 +47,9 @@ export default function RootLayout({
               <div className="min-h-screen">{children}</div>
             </Container>
             <Footer />
+            <Toaster />
+            <TailwindIndicator />
           </ThemeProvider>
-
-          <Toaster />
         </body>
       </AuthProvider>
     </html>

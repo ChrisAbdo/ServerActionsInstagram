@@ -121,9 +121,11 @@ export default async function Home({ params }: { params: { slug: string } }) {
                         projects.
                       </p>
                       <div className="flex items-center pt-2">
-                        <Button variant="outline" size="sm">
-                          View Projects
-                        </Button>
+                        <Link href={`/account/${post.author.name}`}>
+                          <Button variant="outline" size="sm">
+                            View Projects
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
