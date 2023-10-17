@@ -19,6 +19,8 @@ import Image from "next/image";
 import FrameworkSelector from "@/components/data/framework-selector";
 import { Input } from "@/components/ui/input";
 import SearchProjects from "@/components/data/search-projects";
+import DisplayProjects from "@/components/data/display-projects";
+import TopBar from "@/components/projects/top-bar";
 
 export default async function Home({ params }: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
@@ -29,114 +31,163 @@ export default async function Home({ params }: { params: { slug: string } }) {
   if (!session) {
     redirect("/api/auth/signin");
   }
-  const posts = await prisma.post.findMany({
-    where: {
-      OR: [{ framework: params.slug }, { title: { contains: params.slug } }],
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
+  // const posts = await prisma.post.findMany({
+  //   where: {
+  //     OR: [{ framework: params.slug }, { title: { contains: params.slug } }],
+  //   },
+  //   orderBy: {
+  //     createdAt: "desc",
+  //   },
+  //   include: {
+  //     author: true,
+  //   },
+  // });
+  const isSortOrder = ["ascending", "descending"].includes(params.slug);
+  const sortOrder = isSortOrder ? params.slug : "descending";
+
+  // Adjust the query to exclude the sorting parameter from the search terms
+  const postsWithCounts = await prisma.post.findMany({
+    where: isSortOrder
+      ? {} // Do not apply any specific filters if it's a sort order
+      : {
+          OR: [
+            { framework: params.slug },
+            { title: { contains: params.slug } },
+          ],
+        },
     include: {
       author: true,
+      _count: {
+        select: { PostUpvote: true },
+      },
     },
   });
 
-  return (
-    <div className="mt-4">
-      <div className="flex justify-between items-center border rounded-md p-4">
-        <div className="flex items-center gap-x-2">
-          <FrameworkSelector />
-          <SearchProjects />
-        </div>
-        <div>
-          <Form />
-        </div>
-      </div>
+  // Sort the retrieved posts based on the upvote count
+  const sortedPosts = postsWithCounts.sort((a, b) => {
+    if (sortOrder === "ascending") {
+      return a._count.PostUpvote - b._count.PostUpvote;
+    } else {
+      return b._count.PostUpvote - a._count.PostUpvote;
+    }
+  });
 
-      {posts.length === 0 ? (
-        <div>
-          <span>No results found.</span>&nbsp;
-          <span>
-            Return to{" "}
-            <Link href="/projects" className="underline">
-              projects.
-            </Link>
-          </span>
-        </div>
-      ) : null}
+  return (
+    // <div className="mt-4">
+    //   {params.slug}
+    //   <div className="flex justify-between items-center border rounded-md p-4">
+    //     <div className="flex items-center gap-x-2">
+    //       <FrameworkSelector />
+    //       <SearchProjects />
+    //     </div>
+    //     <div>
+    //       <Form />
+    //     </div>
+    //   </div>
+
+    //   {/* {posts.length === 0 ? ( */}
+    //   {sortedPosts.length === 0 ? (
+    //     <div>
+    //       <span>No results found.</span>&nbsp;
+    //       <span>
+    //         Return to{" "}
+    //         <Link href="/projects" className="underline">
+    //           projects.
+    //         </Link>
+    //       </span>
+    //     </div>
+    //   ) : null}
+    //   <ul
+    //     role="list"
+    //     className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
+    //   >
+    //     {/* {posts.map((post: any) => ( */}
+    //     {sortedPosts.map((post: any) => (
+    //       // <li key={post.id} className="relative">
+    //       //   <div className="flex justify-between items-center mb-2">
+    //       //     <Badge>{post.framework}</Badge>
+    //       //     <Link href={`/projects/project/${post.id}`}>
+    //       //       <Button variant="outline" size="sm">
+    //       //         <OpenInNewWindowIcon className="w-4 h-4 mr-2" />
+    //       //         View
+    //       //       </Button>
+    //       //     </Link>
+    //       //   </div>
+    //       //   <div
+    //       //     className="border relative w-full hover:opacity-70 transition-all duration-300"
+    //       //     style={{ paddingBottom: "66.66%" }}
+    //       //   >
+    //       //     <Image
+    //       //       src={post.coverImg}
+    //       //       width={400}
+    //       //       height={400}
+    //       //       alt="wtf"
+    //       //       placeholder="blur"
+    //       //       blurDataURL={post.coverImg}
+    //       //       priority
+    //       //       className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+    //       //     />
+    //       //   </div>
+
+    //       //   <div className="flex items-center mt-2 gap-x-2">
+    //       //     <HoverCard openDelay={0}>
+    //       //       <HoverCardTrigger>
+    //       //         <img
+    //       //           className="h-6 w-6 rounded-full object-cover cursor-pointer"
+    //       //           src={post.author.image}
+    //       //           alt=""
+    //       //         />
+    //       //       </HoverCardTrigger>
+    //       //       <HoverCardContent className="w-80">
+    //       //         <div className="flex justify-between space-x-4">
+    //       //           <Avatar>
+    //       //             <AvatarImage src={post.author.image} alt="" />
+    //       //             <AvatarFallback>
+    //       //               <span>{post.author.name}</span>
+    //       //             </AvatarFallback>
+    //       //           </Avatar>
+    //       //           <div className="space-y-1">
+    //       //             <h4 className="text-sm font-semibold">
+    //       //               @{post.author.name}
+    //       //             </h4>
+    //       //             <p className="text-sm">
+    //       //               View {post.author.name}&apos;s profile to see their
+    //       //               projects.
+    //       //             </p>
+    //       //             <div className="flex items-center pt-2">
+    //       //               <Link href={`/account/${post.author.name}`}>
+    //       //                 <Button variant="outline" size="sm">
+    //       //                   View Projects
+    //       //                 </Button>
+    //       //               </Link>
+    //       //             </div>
+    //       //           </div>
+    //       //         </div>
+    //       //       </HoverCardContent>
+    //       //     </HoverCard>
+
+    //       //     <p className="w-max max-w-[75%] truncate rounded-lg px-2 py-1 text-sm bg-muted">
+    //       //       {post.title}
+    //       //     </p>
+    //       //   </div>
+    //       // </li>
+    //       <DisplayProjects
+    //         key={post.id}
+    //         post={post}
+    //         index={sortedPosts.indexOf(post)}
+    //       />
+    //     ))}
+    //   </ul>
+    // </div>
+    <div className="mt-4">
+      <TopBar />
       <ul
         role="list"
         className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
       >
-        {posts.map((post: any) => (
-          <li key={post.id} className="relative">
-            <div className="flex justify-between items-center mb-2">
-              <Badge>{post.framework}</Badge>
-              <Link href={`/projects/project/${post.id}`}>
-                <Button variant="outline" size="sm">
-                  <OpenInNewWindowIcon className="w-4 h-4 mr-2" />
-                  View
-                </Button>
-              </Link>
-            </div>
-            <div
-              className="border relative w-full hover:opacity-70 transition-all duration-300"
-              style={{ paddingBottom: "66.66%" }}
-            >
-              <Image
-                src={post.coverImg}
-                width={400}
-                height={400}
-                alt="wtf"
-                placeholder="blur"
-                blurDataURL={post.coverImg}
-                priority
-                className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
-              />
-            </div>
-
-            <div className="flex items-center mt-2 gap-x-2">
-              <HoverCard openDelay={0}>
-                <HoverCardTrigger>
-                  <img
-                    className="h-6 w-6 rounded-full object-cover cursor-pointer"
-                    src={post.author.image}
-                    alt=""
-                  />
-                </HoverCardTrigger>
-                <HoverCardContent className="w-80">
-                  <div className="flex justify-between space-x-4">
-                    <Avatar>
-                      <AvatarImage src={post.author.image} alt="" />
-                      <AvatarFallback>
-                        <span>{post.author.name}</span>
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="space-y-1">
-                      <h4 className="text-sm font-semibold">
-                        @{post.author.name}
-                      </h4>
-                      <p className="text-sm">
-                        View {post.author.name}&apos;s profile to see their
-                        projects.
-                      </p>
-                      <div className="flex items-center pt-2">
-                        <Link href={`/account/${post.author.name}`}>
-                          <Button variant="outline" size="sm">
-                            View Projects
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-
-              <p className="w-max max-w-[75%] truncate rounded-lg px-2 py-1 text-sm bg-muted">
-                {post.title}
-              </p>
-            </div>
-          </li>
+        {/* {posts.map((post: any, index: number) => ( */}
+        {sortedPosts.map((post: any, index: number) => (
+          <DisplayProjects key={post.id} post={post} index={index} />
         ))}
       </ul>
     </div>

@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import DisplayProjects from "@/components/data/display-projects";
 import TopBar from "@/components/projects/top-bar";
 
-export default async function Home() {
+export default async function Home({ params }: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
 
   if (!session) {

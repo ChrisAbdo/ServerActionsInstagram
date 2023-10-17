@@ -55,14 +55,24 @@ export default function MainNav() {
               href="/projects"
               className={cn(
                 "transition-colors hover:text-foreground/80 text-sm font-medium",
-                pathname === "/projects"
+                pathname?.startsWith("/projects")
                   ? "text-foreground"
                   : "text-foreground/60"
               )}
             >
               Projects
             </Link>
-
+            <Link
+              href="/upload-project"
+              className={cn(
+                "transition-colors hover:text-foreground/80 text-sm font-medium",
+                pathname?.startsWith("/upload-project")
+                  ? "text-foreground"
+                  : "text-foreground/60"
+              )}
+            >
+              Upload Project
+            </Link>
             <Link
               href="/about"
               className={cn(

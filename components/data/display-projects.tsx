@@ -32,8 +32,6 @@ export default function DisplayProjects({
 }) {
   const controls = useAnimation();
 
-  const upvoteCount = post.upvotes;
-
   React.useEffect(() => {
     controls.start("visible");
   }, [controls]);
