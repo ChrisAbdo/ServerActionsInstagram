@@ -20,7 +20,6 @@ export default function SearchProjects() {
       <Input
         type="text"
         placeholder="Search project name"
-        //   on enter key press search
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSearchChange(e);

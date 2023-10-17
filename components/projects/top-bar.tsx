@@ -1,4 +1,3 @@
-import { HomeIcon } from "@radix-ui/react-icons";
 import Form from "../data/form";
 import FrameworkSelector from "../data/framework-selector";
 import SearchProjects from "../data/search-projects";
