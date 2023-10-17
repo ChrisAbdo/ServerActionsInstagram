@@ -5,7 +5,13 @@ import { PutBlobResult } from "@vercel/blob";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-export default function Uploader() {
+export default function Uploader({
+  canSubmit,
+  setCanSubmit,
+}: {
+  canSubmit: boolean;
+  setCanSubmit: (canSubmit: boolean) => void;
+}) {
   const [data, setData] = useState<{
     image: string | null;
   }>({
@@ -52,6 +58,7 @@ export default function Uploader() {
       if (res.status === 200) {
         const { url } = (await res.json()) as PutBlobResult;
         setImage(url);
+        setCanSubmit(true);
       } else {
         const error = await res.text();
         alert(error);

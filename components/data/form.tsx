@@ -56,6 +56,8 @@ export default function Form() {
   const [file, setFile] = useState<File | null>(null);
   const [demoFile, setDemoFile] = useState<File | null>(null);
 
+  const [canSubmit, setCanSubmit] = useState(false);
+
   const [dragActive, setDragActive] = useState(false);
 
   const onChangePicture = useCallback(
@@ -207,7 +209,10 @@ export default function Form() {
                           <div className="mt-3" />
                         </div>
                         <div className="col-span-full">
-                          <Uploader />
+                          <Uploader
+                            canSubmit={canSubmit}
+                            setCanSubmit={setCanSubmit}
+                          />
                         </div>
                       </div>
                     </div>
@@ -270,7 +275,7 @@ export default function Form() {
                     >
                       Cancel
                     </Button>
-                    <UploadButton />
+                    <UploadButton canSubmit={canSubmit} />
                   </div>
 
                   <div className="flex items-center space-x-2 mt-4"></div>

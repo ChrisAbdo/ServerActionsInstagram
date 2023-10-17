@@ -5,10 +5,10 @@ import React from "react";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 
-export default function UploadButton() {
+export default function UploadButton({ canSubmit }: { canSubmit: boolean }) {
   const { pending } = useFormStatus();
   return (
-    <Button disabled={pending} type="submit">
+    <Button disabled={pending || !canSubmit} type="submit">
       {pending ? "Uploading..." : "Upload"}
     </Button>
   );

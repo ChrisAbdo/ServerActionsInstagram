@@ -157,14 +157,16 @@ export default async function Home({ params }: { params: { slug: string } }) {
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      <Button>View Project</Button>
+                      <Button disabled={!post.url}>View Project</Button>
                     </Link>
                     <Link
                       href={post.githubUrl}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      <Button variant="secondary">View Repository</Button>
+                      <Button disabled={!post.githubUrl} variant="secondary">
+                        View Repository
+                      </Button>
                     </Link>
 
                     <ShareButton

@@ -5,10 +5,8 @@ import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
 
-// Declare a module-level variable
 let sessionCache: any = null;
 
-// Define the getSession function
 async function getSession() {
   if (!sessionCache) {
     sessionCache = await getServerSession(authOptions);

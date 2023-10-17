@@ -3,23 +3,6 @@ import { prisma } from "@/prisma/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
-
-import Form from "@/components/data/form";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { EyeOpenIcon, OpenInNewWindowIcon } from "@radix-ui/react-icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
-import FrameworkSelector from "@/components/data/framework-selector";
-import { Input } from "@/components/ui/input";
-import SearchProjects from "@/components/data/search-projects";
-import FrameworkBadge from "@/components/data/framework-badge";
 import DisplayProjects from "@/components/data/display-projects";
 import TopBar from "@/components/projects/top-bar";
 
@@ -36,20 +19,13 @@ export default async function Home() {
     include: {
       author: true,
       _count: {
-        select: { PostUpvote: true }, // Include the count of PostUpvote records
+        select: { PostUpvote: true },
       },
     },
   });
 
   return (
     <div className="mt-4">
-      {/* <div className="flex justify-between items-center border rounded-md p-4">
-        <div>
-          <Form />
-        </div>
-        <FrameworkSelector />
-        <SearchProjects />
-      </div> */}
       <TopBar />
       <ul
         role="list"
